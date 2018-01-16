@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<!-- 加载配置文件 -->
+	<properties resource="application.properties" />
+	
+	<context id="MySQL_Table">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 生成英文注解 -->
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="${db.driverClass}" connectionURL="${db.url}" 
+			userId="${db.username}" password="${db.password}" />
+		
+		<!-- targetPackage:生成模型的包名 -->
+		<!-- targetProject:生成模型的位置 -->
+		<javaModelGenerator targetPackage="${domain.targetPackage}"
+			targetProject="${domain.targetProject}" >
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- targetPackage:生成的映射文件的包名 -->
+		<!-- targetProject:生成的映射文件的位置 -->
+		<sqlMapGenerator targetPackage="${mapper.targetPackage}"
+			targetProject="${mapper.targetProject}" >
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- targetPackage:自动生成接口文件的包名 -->
+		<!-- targetProject:自动生成接口文件的位置 -->
+		<!-- type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）： XMLMAPPER：会生成Mapper接口，接口完全依赖XML； -->
+		<javaClientGenerator targetPackage="${dao.targetPackage}"
+			targetProject="${dao.targetProject}" type="XMLMAPPER" >
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- tableName:要生成的表名，domainObjectName 生成实体类的名称,可以使用通配符%匹配多个表 -->
+		<table schema="schema" tableName="t_order" domainObjectName="Order"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<!-- 主键key要指定 -->
+			<generatedKey column="order_id" sqlStatement="Mysql" />
+		</table>
+	</context>
+</generatorConfiguration>
